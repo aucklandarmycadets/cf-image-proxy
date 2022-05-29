@@ -7,3 +7,5 @@ workers_dev = true
 [env.production]
 zone_id = "bb02dd3b971346ab184ec7a5b44710f8"
 route = "cdn.aucklandarmycadets.org.nz/*"
+
+compatibility_date = "2021-06-03"
