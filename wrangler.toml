@@ -1,9 +1,9 @@
 name = "cf-image-proxy"
 type = "javascript"
 webpack_config = "webpack.config.js"
-account_id = "TODO"
+account_id = "df374846bc4fabc47410c0e4d33f70fb"
 workers_dev = true
 
 [env.production]
-zone_id = "TODO"
-route = "TODO"
+zone_id = "bb02dd3b971346ab184ec7a5b44710f8"
+route = "cdn.aucklandarmycadets.org.nz/*"
