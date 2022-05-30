@@ -39,6 +39,15 @@ export const normalizeUrl = (urlString) => {
     urlObj.hostname = urlObj.hostname.replace(/\.$/, '')
   }
 
+  // Delete auth parameters
+  urlObj.searchParams.delete('X-Amz-Algorithm')
+  urlObj.searchParams.delete('X-Amz-Content-Sha256')
+  urlObj.searchParams.delete('X-Amz-Credential')
+  urlObj.searchParams.delete('X-Amz-Date')
+  urlObj.searchParams.delete('X-Amz-Expires')
+  urlObj.searchParams.delete('X-Amz-Signature')
+  urlObj.searchParams.delete('X-Amz-SignedHeaders')
+
   // Sort query parameters
   urlObj.searchParams.sort()
 
