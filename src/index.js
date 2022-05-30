@@ -37,7 +37,8 @@ async function handleFetchEvent(event) {
 			const originRes = await fetchCache({
 				event,
 				cacheKey,
-				fetch: () => fetchRequest(event, { originReq })
+				fetch: () => fetchRequest(event, { originReq }),
+				revalidate: request.url.includes('X-Amz')
 			})
 
 			res = new Response(originRes.body, originRes)
