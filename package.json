@@ -23,7 +23,7 @@
 		"preview": "wrangler preview",
 		"prepublish": "run-s build:development",
 		"publish": "wrangler publish",
-		"deploy": "run-s \"publish --env production\"",
+		"deploy": "run-s \"publish -- --env production\"",
 		"pretest": "run-s build",
 		"test": "ava -v"
 	},
