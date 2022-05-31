@@ -1,3 +1,5 @@
+import { normalizeUrl } from './normalize-url'
+
 const notionImagePrefix = 'https://www.notion.so/image/'
 
 /**
@@ -32,6 +34,29 @@ export async function resolveRequest(event, request) {
         imageUrl.toString()
       )}`
     }
+  }
+
+  const cacheKeyUrl = normalizeUrl(originUri)
+
+  try {
+    if (originUri.includes('X-Amz-')) {
+      // store auth url in KV
+      console.log('Putting auth url in PROXY', {
+        cacheKeyUrl,
+        originUri
+      })
+      await PROXY.put(cacheKeyUrl, originUri)
+    }
+    else if (originUri.includes('secure.notion-static.com')) {
+      console.log('Getting auth url from PROXY', {
+        cacheKeyUrl
+      })
+      originUri = await PROXY.get(cacheKeyUrl)
+      console.log(`Gotten auth url ${originUri}`)
+    }
+  }
+  catch (err) {
+    console.warn(err.toString())
   }
 
   const originReq = new Request(originUri, request)
