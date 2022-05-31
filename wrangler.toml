@@ -1,4 +1,4 @@
-name = "images"
+name = "cdn"
 type = "javascript"
 webpack_config = "webpack.config.js"
 account_id = "df374846bc4fabc47410c0e4d33f70fb"
