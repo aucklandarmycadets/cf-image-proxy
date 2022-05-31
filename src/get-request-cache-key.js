@@ -2,25 +2,28 @@ import { normalizeUrl } from './normalize-url'
 
 export async function getRequestCacheKey(request) {
   try {
-    // Respect "pragma: no-cache" header
+    /* // Respect "pragma: no-cache" header
     const pragma = request.headers.get('pragma')
     if (pragma === 'no-cache') {
+      console.log('Returning null because 1')
       return null
-    }
+    } */
 
     // Only cache readonly requests
     if (request.method !== 'GET' && request.method !== 'HEAD') {
+      console.log('Returning null because 2')
       return null
     }
 
-    // Respect "cache-control" header directives
+    /* // Respect "cache-control" header directives
     const cacheControl = request.headers.get('cache-control')
     if (cacheControl) {
       const directives = new Set(cacheControl.split(',').map((s) => s.trim()))
       if (directives.has('no-store') || directives.has('no-cache')) {
+        console.log('Returning null because 3')
         return null
       }
-    }
+    } */
 
     const url = request.url
     const normalizedUrl = normalizeUrl(url)
