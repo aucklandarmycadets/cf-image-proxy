@@ -1,7 +1,7 @@
 const cache = caches.default
 
 export async function fetchCache(opts) {
-  const { event, cacheKey, fetch: fetchResponse, revalidate } = opts
+  const { event, cacheKey, fetch: fetchResponse } = opts
 
   let response
 
@@ -10,8 +10,7 @@ export async function fetchCache(opts) {
     response = await cache.match(cacheKey)
   }
 
-  if (!response || revalidate) {
-    console.log(`Revalidating with ${!!response}`)
+  if (!response) {
     response = await fetchResponse()
     response = new Response(response.body, response)
 
