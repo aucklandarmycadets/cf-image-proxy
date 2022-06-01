@@ -39,7 +39,13 @@ export async function resolveRequest(event, request) {
   const cacheKeyUrl = normalizeUrl(originUri)
 
   try {
-    if (originUri.includes('X-Amz-') && !(await PROXY.get(cacheKeyUrl))) {
+    console.log('Getting auth url from PROXY', {
+      cacheKeyUrl
+    })
+    const storedValue = await PROXY.get(cacheKeyUrl)
+    console.log(`Gotten auth url ${storedValue}`)
+
+    if (!storedValue && originUri.includes('X-Amz-')) {
       const expirationTtl = new URL(originUri).searchParams.get('X-Amz-Expires') / 2
       // store auth url in KV
       console.log('Putting auth url in PROXY', {
@@ -49,12 +55,8 @@ export async function resolveRequest(event, request) {
       })
       PROXY.put(cacheKeyUrl, originUri, { expirationTtl })
     }
-    else if (originUri.includes('secure.notion-static.com')) {
-      console.log('Getting auth url from PROXY', {
-        cacheKeyUrl
-      })
-      originUri = await PROXY.get(cacheKeyUrl)
-      console.log(`Gotten auth url ${originUri}`)
+    else if (!originUri.includes('X-Amz-')) {
+      originUri = storedValue
     }
   }
   catch (err) {
