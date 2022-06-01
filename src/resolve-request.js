@@ -45,7 +45,7 @@ export async function resolveRequest(event, request) {
         cacheKeyUrl,
         originUri
       })
-      await PROXY.put(cacheKeyUrl, originUri)
+      PROXY.put(cacheKeyUrl, originUri)
     }
     else if (originUri.includes('secure.notion-static.com')) {
       console.log('Getting auth url from PROXY', {
